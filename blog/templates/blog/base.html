@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" >
+
+  {% if title %}
+  <title>Duboka mreža - {{ title }}</title>
+  {% else %}
+  <title>Duboka mreža</title>
+  {% endif %}
+</head>
+<body>
+
+  <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="{% url 'blog-home' %}"><i class="fas fa-user-secret fa-la"></i></a>
+            <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Duboka mreža</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'blog-home' %}">Naslovna</a>
+                <a class="nav-item nav-link" href="{% url 'blog-about' %}">O nama</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">Nova objava</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profil</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Odjava</a>
+                {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Prijava</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Registracija</a>
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main role="main" class="container">
+          <div class="row">
+            <div class="col-md-8">
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+              {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+              <div class="content-section">
+                <h3>Još tajni iz informacijskog podzemlja</h3>
+                <p class='text-muted'>dolazi uskoro...
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item-light">Mračna mreža</li>
+                    <li class="list-group-item list-group-item-light">Duboka mreža</li>
+                    <li class="list-group-item list-group-item-light">Javne tajne</li>
+                    <li class="list-group-item list-group-item-light">Majanski kalendar</li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+          </div>
+        </main>  
+  
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
